@@ -1,8 +1,8 @@
 package com.originlang;
 
 
+import com.originlang.server.Server;
 import com.originlang.util.StringUtil;
-import com.originlang.server.ServerStart;
 
 public class Main {
 
@@ -11,6 +11,6 @@ public class Main {
        boolean res2 = StringUtil.isBlank(" ");
         System.out.println(res2);
 
-        ServerStart.run(Main.class,args);
+        Server.run(Main.class,args);
     }
 }
