@@ -11,6 +11,6 @@ public class Main {
        boolean res2 = StringUtil.isBlank(" ");
         System.out.println(res2);
 
-        Server.run(Main.class,args);
+        Server.start(args);
     }
 }
