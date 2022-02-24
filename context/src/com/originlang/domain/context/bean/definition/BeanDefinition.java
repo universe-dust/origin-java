@@ -8,8 +8,8 @@ public interface BeanDefinition {
 
 
         // 设置、返回 Bean 的 className
-    void setBeanClassName( String beanClassName);
-    String getBeanClassName();
+    void setBeanName( String beanClassName);
+    String getBeanName();
 
 
 

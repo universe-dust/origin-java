@@ -3,6 +3,7 @@ package com.originlang.domain.context.scan;
 
 import com.originlang.base.SystemInfo;
 import com.originlang.domain.context.ApplicationBootstrap;
+import com.originlang.domain.context.ioc.ApplicationContext;
 import com.originlang.log.LogFacade;
 import com.originlang.log.LogFactory;
 
@@ -10,27 +11,27 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 
 // 扫描类 + 配置文件
-public class ApplicationScanner {
-    static LogFacade logFacade = LogFactory.getLogger(ApplicationBootstrap.class);
+public class ApplicationScanner implements Scanner{
+   private static LogFacade logFacade = LogFactory.getLogger(ApplicationBootstrap.class);
 
-    public static void scan(Class mainClazz) {
-
-
+    List<String> classNameList = new ArrayList<>(512);
+    /**
+     *
+     * @param mainClazz  类字节码
+     */
+    @Override
+    public  List<String> scan(Class mainClazz) {
 //       String userDir = SystemInfo.userDir;
-
-
 
         try {
 //        处理后多一个 /
@@ -39,20 +40,42 @@ public class ApplicationScanner {
             logFacade.info(">>>>>start class in mainClazzPath="+mainClazzPath);
 
 
-            File mainFileDir = new File(mainClazzPath);
-            System.out.println("11111111111111111111");
-            File[] dirfiles = mainFileDir.listFiles(new FileFilter() {
-                // 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
-                @Override
-                public boolean accept(File file) {
-                    System.out.println("是否class文件+" + file.isDirectory() + file.getName().endsWith(".class"));
-                    return   (file.isDirectory()) || (file.getName().endsWith(".class"));
-                }
-            });
-//             todo
+//            File mainFileDir = new File(mainClazzPath);
+//            System.out.println("11111111111111111111");
+//            File[] dirfiles = mainFileDir.listFiles(new FileFilter() {
+//                // 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
+//                @Override
+//                public boolean accept(File file) {
+//                    System.out.println("是否class文件+" + file.isDirectory() + file.getName().endsWith(".class"));
+//                    return   (file.isDirectory()) || (file.getName().endsWith(".class"));
+//                }
+//            });
+
+                doScan(mainClazzPath,mainClazz.getPackageName());
+
+                classNameList.stream().forEach(className-> {
+                    System.out.println(className);
+                    try {
+                      Class c =  Class.forName(className);
+
+//                    Object o =    c.getDeclaredConstructor().newInstance();
+//                 Object o2 =     Thread.currentThread().getContextClassLoader().loadClass(e).getDeclaredConstructor().newInstance();
+                        // 待优化，使用自己的类加载器，目前想到使用回调函数实现 todo
+                 Object obj =c.getClassLoader().loadClass(className).getDeclaredConstructor().newInstance();
+                 //放入容器
+                        ApplicationContext.put(className,obj);
+
+                     System.out.println(obj);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
 
 
-            doScan(mainClazz,mainClazzPath);
+                });
+
+
+
+//            doScan(mainClazz,mainClazzPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,8 +83,42 @@ public class ApplicationScanner {
         ///C:/Users/snow/Desktop/GitRepository/originlang-java/out/production/originlang-example/com/
 //        logFacade.info(">>>>> classload"+mainClazz.getClassLoader().getResource("com"));
 
-
+        return classNameList;
     }
+
+    private  void  doScan(String dirPath,String pkg){
+        logFacade.debug("路径="+dirPath + "包="+pkg);
+        File mainFileDir = new File(dirPath);
+        File[] dirfiles = mainFileDir.listFiles(new FileFilter() {
+            // 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
+            @Override
+            public boolean accept(File file) {
+                System.out.println("是否class文件+" + file.isDirectory() + file.getName().endsWith(".class"));
+                return   (file.isDirectory()) || (file.getName().endsWith(".class"));
+            }
+        });
+
+        // 循环所有文件
+        for (File file : dirfiles) {
+            // 如果是目录 则继续扫描
+            if (file.isDirectory()) {
+                doScan(dirPath + SystemInfo.fileSeparator+file.getName(),pkg + "."+file.getName() );
+            } else {
+                // 如果是java类文件 去掉后面的.class 只留下类名
+
+                String className = file.getName().substring(0, file.getName().length() - 6);
+                System.out.println("className000000"+className);
+                // 添加到集合中去
+                // classes.add(Class.forName(packageName + '.' +
+                // className));
+                // 经过回复同学的提醒，这里用forName有一些不好，会触发static方法，没有使用classLoader的load干净
+//                    System.out.println(clazz.getClassLoader().loadClass(packageName + '.' + className).getName());
+//                    classes.add(clazz.getClassLoader().loadClass(packageName + '.' + className));
+                classNameList.add(pkg + "." +className);
+            }
+        }
+    }
+
 
 //    public static void scan(Class clazz,String... pkgPath) {
 //        if (pkgPath == null || pkgPath.length == 0) {

@@ -24,8 +24,7 @@ public class Example {
 //           Domain domain =     c.getAnnotation(Domain.class);
 //            System.out.println(annotation);
 
-         Domain domain2 =   Test.class.getAnnotation(Domain.class);
-            System.out.println(domain2);
+
 
         }catch (Exception e){}
 

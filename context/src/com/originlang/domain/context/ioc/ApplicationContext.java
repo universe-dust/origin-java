@@ -21,6 +21,8 @@ public class ApplicationContext extends ApplicationAbstractContext {
 
     //单例的IoC容器缓存
     private Map<String,Object> factoryBeanObjectSingletonCacheMap = new ConcurrentHashMap<String, Object>();
+    //
+
 
 
 

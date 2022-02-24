@@ -2,6 +2,7 @@ package com.originlang.example;
 
 import com.originlang.domain.context.ApplicationBootstrap;
 import com.originlang.domain.context.annotation.Application;
+import com.originlang.domain.context.annotation.DependencyInjection;
 
 
 import java.lang.reflect.Field;
@@ -19,6 +20,11 @@ public class AppRun {
 //            printFieldValue(field);
 //        }
 
+//      Class userClass=  Class.forName("com.originlang.example.entity.User");
+//       Field[] fields2 = userClass.getDeclaredFields();
+//        for (Field field : fields2) {
+//            printFieldValue(field);
+//        }
 
 
         ApplicationBootstrap.run(AppRun.class,args);
@@ -32,9 +38,10 @@ public class AppRun {
             // based on its declaration such as a private field
             field.setAccessible(true);
             // Print the field's value
-            System.out.println(fieldName + " = " + field.get(null));
-        } catch (IllegalAccessException | IllegalArgumentException |
-                InaccessibleObjectException e) {
+            System.out.println(fieldName + " = " );
+            System.out.println(field.getAnnotation(DependencyInjection.class));
+
+        } catch (Exception  e) {
             System.out.println("Accessing " + fieldName +
                     ". Error: " + e.getMessage());
         }
