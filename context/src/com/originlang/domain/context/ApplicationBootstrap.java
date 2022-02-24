@@ -44,9 +44,10 @@ public class ApplicationBootstrap {
 
 
 
-        //加载类
+        //注入类
         DependencyInjection dependencyInjection =new ApplicationDependencyInjection();
         dependencyInjection.dependencyInjection(classNameList);
+
 
 
         // 应用初始化

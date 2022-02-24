@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 @Inherited
 // 可以反射获取
 @Retention(RetentionPolicy.RUNTIME)
+@Index
 public @interface DependencyInjection {
 
 

@@ -3,6 +3,7 @@ package com.originlang.example;
 import com.originlang.domain.context.ApplicationBootstrap;
 import com.originlang.domain.context.annotation.Application;
 import com.originlang.domain.context.annotation.DependencyInjection;
+import com.originlang.domain.context.annotation.Entity;
 import com.originlang.domain.context.ioc.ApplicationContext;
 
 
@@ -21,7 +22,9 @@ public class AppRun {
 //            printFieldValue(field);
 //        }
 
-//      Class userClass=  Class.forName("com.originlang.example.entity.User");
+      Class userClass=  Class.forName("com.originlang.example.entity.User");
+        System.out.println(userClass.getAnnotation(DependencyInjection.class));
+        System.out.println(userClass.getDeclaredAnnotation(DependencyInjection.class));
 //       Field[] fields2 = userClass.getDeclaredFields();
 //        for (Field field : fields2) {
 //            printFieldValue(field);

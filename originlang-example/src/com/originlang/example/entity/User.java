@@ -6,7 +6,7 @@ import com.originlang.domain.context.annotation.Entity;
 
 import java.util.List;
 
-@Domain
+@Entity
 public class User {
 
     private Long id =123L;
