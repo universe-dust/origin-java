@@ -3,6 +3,7 @@ package com.originlang.example;
 import com.originlang.domain.context.ApplicationBootstrap;
 import com.originlang.domain.context.annotation.Application;
 import com.originlang.domain.context.annotation.DependencyInjection;
+import com.originlang.domain.context.ioc.ApplicationContext;
 
 
 import java.lang.reflect.Field;
@@ -28,6 +29,8 @@ public class AppRun {
 
 
         ApplicationBootstrap.run(AppRun.class,args);
+
+        System.out.println(ApplicationContext.getDependencyByName("com.originlang.example.entity.User"));
     }
 
 

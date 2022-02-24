@@ -1,6 +1,7 @@
 package com.originlang.domain.context;
 
 import com.originlang.domain.context.annotation.Application;
+import com.originlang.domain.context.ioc.ApplicationContext;
 import com.originlang.domain.context.ioc.ApplicationDependencyInjection;
 import com.originlang.domain.context.ioc.DependencyInjection;
 import com.originlang.domain.context.scan.ApplicationScanner;
@@ -38,17 +39,19 @@ public class ApplicationBootstrap {
 
         //包扫描
         Scanner scanner = new ApplicationScanner();
-       Collection<String> classNames= scanner.scan(mainClazz);
+       List<String> classNameList= scanner.scan(mainClazz);
 
 
 
 
         //加载类
         DependencyInjection dependencyInjection =new ApplicationDependencyInjection();
-        dependencyInjection.dependencyInjection(new HashSet());
+        dependencyInjection.dependencyInjection(classNameList);
 
 
         // 应用初始化
+
+
 
 
     }
