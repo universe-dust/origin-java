@@ -2,7 +2,7 @@ package com.originlang.base;
 
 import java.io.File;
 
-public class SystemInfo {
+public final class SystemInfo {
 
     //当前工程所在文件夹
     public static  String userDir = System.getProperty("user.dir");
@@ -20,6 +20,11 @@ public class SystemInfo {
 //        System.out.println(fileSeparator);
 //
 //    }
+
+    static private int a = 10;
+    static int b = 20;
+    static protected int c = 30;
+    static public int d = 40;
 
 
 }

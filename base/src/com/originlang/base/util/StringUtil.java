@@ -1,4 +1,4 @@
-package com.originlang.util;
+package com.originlang.base.util;
 
 public class StringUtil {
 

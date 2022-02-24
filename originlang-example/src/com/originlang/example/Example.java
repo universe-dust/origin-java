@@ -1,7 +1,7 @@
 package com.originlang.example;
 
 import com.originlang.base.reflect.Reflect;
-import com.originlang.domain.context.Domain;
+import com.originlang.domain.context.annotation.Domain;
 import com.originlang.example.entity.User;
 
 

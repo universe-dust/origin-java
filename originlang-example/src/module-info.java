@@ -1,8 +1,8 @@
 module originlang.example {
     requires log;
-    requires domain.context;
-    requires base;
+    requires context;
     requires java.base;
     requires java.datatransfer;
+    requires base;
 
 }

@@ -1,6 +1,6 @@
 package com.originlang.example.entity;
 
-import com.originlang.domain.context.Domain;
+import com.originlang.domain.context.annotation.Domain;
 
 import java.util.List;
 

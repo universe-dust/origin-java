@@ -28,8 +28,8 @@ public class JdkLogFacade implements LogFacade {
     @Override
     public void info(String message) {
 
-        Logger.getLogger("com").info( message);
-
+//        Logger.getLogger("com").info( message);
+        System.out.println(message);
     }
 
     @Override
@@ -39,7 +39,8 @@ public class JdkLogFacade implements LogFacade {
 
     @Override
     public void error(String message) {
-        jdkLogFacade.logger.severe(message);
+//        jdkLogFacade.logger.severe(message);
+        System.out.println(message);
     }
 
 
