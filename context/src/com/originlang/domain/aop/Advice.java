@@ -1,4 +1,4 @@
-package com.originlang.domain.context.aop;
+package com.originlang.domain.aop;
 
 import java.lang.reflect.Method;
 
@@ -13,5 +13,6 @@ public interface Advice {
      * @param args   方法参数
      */
     Object invoke(Object target, Method method, Object[] args) throws Exception;
+
 
 }

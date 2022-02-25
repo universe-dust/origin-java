@@ -5,6 +5,8 @@ import com.originlang.domain.context.annotation.Application;
 import com.originlang.domain.context.annotation.DependencyInjection;
 import com.originlang.domain.context.annotation.Entity;
 import com.originlang.domain.context.ioc.ApplicationContext;
+import com.originlang.example.entity.User;
+import com.originlang.example.entity.UserAopInterface;
 
 
 import java.lang.reflect.Field;
@@ -22,7 +24,7 @@ public class AppRun {
 //            printFieldValue(field);
 //        }
 
-      Class userClass=  Class.forName("com.originlang.example.entity.User");
+        Class userClass=  Class.forName("com.originlang.example.entity.User");
         System.out.println(userClass.getAnnotation(DependencyInjection.class));
         System.out.println(userClass.getDeclaredAnnotation(DependencyInjection.class));
 //       Field[] fields2 = userClass.getDeclaredFields();
@@ -33,7 +35,14 @@ public class AppRun {
 
         ApplicationBootstrap.run(AppRun.class,args);
 
-        System.out.println(ApplicationContext.getDependencyByName("com.originlang.example.entity.User"));
+        System.out.println("---------------------------------");
+
+//        System.out.println(ApplicationContext.getDependencyByName("com.originlang.example.entity.User"));
+
+        //有代理类则获取不到此方法
+//        System.out.println(ApplicationContext.getDependencyByClass(User.class).say());
+        UserAopInterface userAopInterface = (UserAopInterface) ApplicationContext.getDependencyByName("com.originlang.example.entity.User");
+        System.out.println(userAopInterface.aopSay("aop ssssssssssssssssss"));
     }
 
 

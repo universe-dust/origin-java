@@ -20,7 +20,9 @@ public class ApplicationBootstrap {
     public static void run(Class mainClazz, String[] args) {
         logFacade.info("JavaApplication starting >>>>>");
         doRun(mainClazz, args);
+        logFacade.info("==============================");
         logFacade.info("JavaApplication started <<<<<");
+        logFacade.info("==============================");
     }
 
     private static void doRun(Class mainClazz, String[] args) {
@@ -31,7 +33,7 @@ public class ApplicationBootstrap {
         // 启动类注解判断
         Application application = (Application) mainClazz.getAnnotation(Application.class);
         String env =  application.env();
-        logFacade.info("项目启动环境" + env);
+        logFacade.info("项目启动环境:" + env);
         ApplicationConfiguration.env = env;
 
 
