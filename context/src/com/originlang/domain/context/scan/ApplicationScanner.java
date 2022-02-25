@@ -24,7 +24,7 @@ import java.util.jar.JarFile;
 public class ApplicationScanner implements Scanner{
    private static LogFacade logFacade = LogFactory.getLogger(ApplicationBootstrap.class);
 
-    List<String> classNameList = new ArrayList<>(512);
+    List<String> classNameList = new ArrayList<>(256);
     /**
      *
      * @param mainClazz  类字节码
@@ -52,10 +52,6 @@ public class ApplicationScanner implements Scanner{
 //            });
 
                 doScan(mainClazzPath,mainClazz.getPackageName());
-
-
-
-
 
 //            doScan(mainClazz,mainClazzPath);
         } catch (Exception e) {
@@ -87,7 +83,6 @@ public class ApplicationScanner implements Scanner{
                 doScan(dirPath + SystemInfo.fileSeparator+file.getName(),pkg + "."+file.getName() );
             } else {
                 // 如果是java类文件 去掉后面的.class 只留下类名
-
                 String className = file.getName().substring(0, file.getName().length() - 6);
                 System.out.println("className000000"+className);
                 // 添加到集合中去
@@ -111,22 +106,22 @@ public class ApplicationScanner implements Scanner{
 //    }
 
 
-    private static void doScan(Class mainClazz,String... clazzPathArray) {
-        Set<Class<?>> appClass = new LinkedHashSet<Class<?>>();
-
-        Arrays.stream(clazzPathArray).forEach(
-                clazzPath->{
-                    logFacade.info("JavaApplication component scan  dir = " + clazzPath);
-                    Set<Class<?>> pkgClasses =    getPkgClasses(mainClazz,clazzPath);
-                    appClass.addAll(pkgClasses);
-                    pkgClasses.stream().forEach(clazz2-> System.out.println("---scanned clazz" + clazz2.getName()));
-
-                }
-        );
-
-
-
-    }
+//    private static void doScan(Class mainClazz,String... clazzPathArray) {
+//        Set<Class<?>> appClass = new LinkedHashSet<Class<?>>();
+//
+//        Arrays.stream(clazzPathArray).forEach(
+//                clazzPath->{
+//                    logFacade.info("JavaApplication component scan  dir = " + clazzPath);
+//                    Set<Class<?>> pkgClasses =    getPkgClasses(mainClazz,clazzPath);
+//                    appClass.addAll(pkgClasses);
+//                    pkgClasses.stream().forEach(clazz2-> System.out.println("---scanned clazz" + clazz2.getName()));
+//
+//                }
+//        );
+//
+//
+//
+//    }
 
     /**
      * 根据包名获取包下面所有的类名

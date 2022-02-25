@@ -1,15 +1,17 @@
 package com.originlang.domain.context.bean.definition;
 
-public interface BeanDefinition {
+public interface ObjectDefinition {
 
     // 单例、原型标识符
     String SCOPE_SINGLETON = "SCOPE_SINGLETON";
     String SCOPE_PROTOTYPE = "SCOPE_PROTOTYPE";
 
 
-        // 设置、返回 Bean 的 className
-    void setBeanName( String beanClassName);
-    String getBeanName();
+
+    //接口中只定义方法，字段由实现类去实现；
+     void setObjectName(String objectName);
+
+     String getObjectName( );
 
 
 

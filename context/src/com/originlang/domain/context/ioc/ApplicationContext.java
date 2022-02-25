@@ -15,11 +15,8 @@ public class ApplicationContext extends ApplicationAbstractContext {
     // 三级缓存
     private  Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>(256);
     private  Map<String, Object> earlySingletonObjects = new HashMap<>(16);
-    private  Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
+    private  Map<String, ObjectFactory> singletonFactories = new HashMap<>(16);
 
-    //单例的IoC容器缓存
-//    private Map<String,Object> factoryBeanObjectSingletonCacheMap = new ConcurrentHashMap<String, Object>();
-    //
 
 
 

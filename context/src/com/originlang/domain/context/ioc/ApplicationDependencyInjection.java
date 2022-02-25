@@ -38,7 +38,7 @@ public class ApplicationDependencyInjection implements DependencyInjection {
                 }
 
 
-                Field[] fieldArray = clazz.getDeclaredFields();
+                Field[] fieldArray = clazz.getFields();
                 for (Field field : fieldArray) {
 //                    field.getAnnotation();
                     String fieldName = field.getName();

@@ -8,7 +8,6 @@ public interface Scanner {
        List<String> scan(Class mainClazz) ;
       //扫描自定义包，选择实现
       default Collection<String> scan(Collection<String> scanPkg) {
-
           return scanPkg;
       }
 }

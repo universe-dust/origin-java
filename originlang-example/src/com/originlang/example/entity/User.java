@@ -1,7 +1,7 @@
 package com.originlang.example.entity;
 
 import com.originlang.domain.aop.PointCut;
-import com.originlang.domain.context.annotation.DependencyInjection;
+import com.originlang.domain.context.annotation.Dependency;
 import com.originlang.domain.context.annotation.Entity;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class User implements UserAopInterface{
     private  String name;
     private List<String> bookList;
 
-    @DependencyInjection
+    @Dependency
     private Account account;
 
     public String say(){

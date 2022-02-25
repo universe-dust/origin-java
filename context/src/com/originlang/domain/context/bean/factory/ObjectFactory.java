@@ -1,6 +1,9 @@
 package com.originlang.domain.context.bean.factory;
-@FunctionalInterface
-public interface ObjectFactory<T> {
-    T getObject();
 
+import java.util.List;
+
+public interface ObjectFactory {
+
+
+    void createObject(List<String> classNameList) throws ClassNotFoundException;
 }

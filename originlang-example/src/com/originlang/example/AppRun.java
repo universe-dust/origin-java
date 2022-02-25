@@ -2,15 +2,12 @@ package com.originlang.example;
 
 import com.originlang.domain.context.ApplicationBootstrap;
 import com.originlang.domain.context.annotation.Application;
-import com.originlang.domain.context.annotation.DependencyInjection;
-import com.originlang.domain.context.annotation.Entity;
+import com.originlang.domain.context.annotation.Dependency;
 import com.originlang.domain.context.ioc.ApplicationContext;
-import com.originlang.example.entity.User;
 import com.originlang.example.entity.UserAopInterface;
 
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InaccessibleObjectException;
 
 
 @Application
@@ -25,8 +22,8 @@ public class AppRun {
 //        }
 
         Class userClass=  Class.forName("com.originlang.example.entity.User");
-        System.out.println(userClass.getAnnotation(DependencyInjection.class));
-        System.out.println(userClass.getDeclaredAnnotation(DependencyInjection.class));
+        System.out.println(userClass.getAnnotation(Dependency.class));
+        System.out.println(userClass.getDeclaredAnnotation(Dependency.class));
 //       Field[] fields2 = userClass.getDeclaredFields();
 //        for (Field field : fields2) {
 //            printFieldValue(field);
@@ -54,7 +51,7 @@ public class AppRun {
             field.setAccessible(true);
             // Print the field's value
             System.out.println(fieldName + " = " );
-            System.out.println(field.getAnnotation(DependencyInjection.class));
+            System.out.println(field.getAnnotation(Dependency.class));
 
         } catch (Exception  e) {
             System.out.println("Accessing " + fieldName +
