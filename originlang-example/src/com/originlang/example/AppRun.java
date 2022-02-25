@@ -41,7 +41,7 @@ public class AppRun {
 
         //有代理类则获取不到此方法
 //        System.out.println(ApplicationContext.getDependencyByClass(User.class).say());
-        UserAopInterface userAopInterface = (UserAopInterface) ApplicationContext.getDependencyByName("com.originlang.example.entity.User");
+        UserAopInterface userAopInterface = (UserAopInterface) ApplicationContext.getDependencyByName("com.originlang.example.entity.UserAopInterface");
         System.out.println(userAopInterface.aopSay("aop ssssssssssssssssss"));
     }
 

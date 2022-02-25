@@ -86,7 +86,7 @@ public class ApplicationDependencyInjection implements DependencyInjection {
                     Object proxyInstance = objectProxy.newProxyInstance(clazz.getInterfaces()[0],(InvocationHandler) executionClazz.getConstructor(Object.class).newInstance(obj));
                     //注入代理对象
                     System.out.println(clazz.getName() +"----------------------------------------------------------Proxy instance=" + proxyInstance);
-                    ApplicationContext.registerSingleton(clazz.getName(),proxyInstance);
+                    ApplicationContext.registerSingleton(clazz.getInterfaces()[0].getName(),proxyInstance);
                 }
 
             } catch (Exception ex) {
