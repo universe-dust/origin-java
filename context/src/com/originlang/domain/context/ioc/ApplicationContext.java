@@ -1,45 +1,49 @@
 package com.originlang.domain.context.ioc;
 
+import java.lang.reflect.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import com.originlang.domain.context.bean.factory.ObjectFactory;
+
+import com.originlang.domain.aop.ObjectProxy;
+import com.originlang.domain.aop.PointCut;
+import com.originlang.domain.context.ioc.object.factory.ObjectFactory;
 
 public class ApplicationContext extends ApplicationAbstractContext {
 
+    private ApplicationContext() {
+
+    }
+
+    private ApplicationContext applicationContext = new ApplicationContext();
 
 
-
-    private  static ApplicationContext applicationContext = new ApplicationContext();
 
     // 三级缓存
-    private  Map<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>(256);
-    private  Map<String, Object> earlySingletonObjects = new HashMap<>(16);
-    private  Map<String, ObjectFactory> singletonFactories = new HashMap<>(16);
 
 
 
-
-    private ApplicationContext(){
-
-    }
-
-
-
-
-    public static  <T>T  registerSingleton(String key ,T value){
-          return (T) applicationContext.singletonObjects.put(key,value);
-    }
-
-    public static Object getDependencyByName(String className){
-        return  applicationContext.singletonObjects.get(className);
-    }
-//    public <T> T getDependencyByName(String className,int i){
-//        return (T) applicationContext.singletonObjects.get(className);
+//    public <T> T registerSingleton(String key, T value) {
+//        return (T) applicationContext.singletonObjects.put(key, value);
 //    }
-    public static   <T> T  getDependencyByClass(Class<T> clazz){
-        return (T)  applicationContext.singletonObjects.get(clazz.getName());
-    }
+//
+//
+//
+//    public static <T> T getDependencyByClass(Class<T> clazz) {
+//        return (T) getDependencyByName(clazz.getName());
+//    }
+//
+//
+//    public synchronized Object getDependencyByName(String classFullName) {
+//        Object object = singletonObjects.get(classFullName);
+//        if (object == null) {
+//            //依赖注入
+////            dependencyInjection(classFullName);
+//        }
+//
+//        return object;
+//    }
 
 
 

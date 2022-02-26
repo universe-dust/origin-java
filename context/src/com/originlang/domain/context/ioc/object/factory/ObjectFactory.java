@@ -1,4 +1,4 @@
-package com.originlang.domain.context.bean.factory;
+package com.originlang.domain.context.ioc.object.factory;
 
 import java.util.List;
 

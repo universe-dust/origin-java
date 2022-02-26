@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * 作用在类或方法上
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ElementType.METHOD})
 public @interface PointCut {
 //    //切入点的颗粒度需要到某个类下面的某个方法
 //    /**
@@ -26,6 +26,10 @@ public @interface PointCut {
 
     // 对应切面的类全名： java.xxx.Abc
     String execution();
+
+    //jdk动态代理所需的接口，代理方法必须实现
+
+    String interfaceName() default "";
 
 }
 

@@ -8,6 +8,7 @@
 - 使用时必须定义为 open model
 - 基于JDK17 
 - 可以反射的Open Model : core
+- object对应spring框架中的bean
 ## AOP
 基于jdk动态代理实现，被代理对象必须有一个父接口，容器中注入的是代理对象；
 获取代理对象的方式为get(父类接口全名)

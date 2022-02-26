@@ -1,10 +1,12 @@
-package com.originlang.domain.context.bean.definition;
+package com.originlang.domain.context.ioc.object.definition;
 
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 // 实现的benn定义
 public class ApplicationAnnotationObjectDefinition extends AnnotationObjectDefinition {
@@ -12,19 +14,19 @@ public class ApplicationAnnotationObjectDefinition extends AnnotationObjectDefin
     /**
      * 对象名称
      */
-    String objectName;
+    public String objectName;
+    //对象
+    public Object object;
 
-    Class clazz;
+    public Class clazz;
     // 构造函数
-    Constructor[] constructorArray;
-
-    Field[] fieldArray;
-
-
-
-
-
+    public Constructor[] constructorArray;
+    //属性
+//    public Field[] fieldArray;
+    public List<Class<?>> fieldClazzList = new ArrayList<>(16);
+    //方法
     Method[] methodArray;
+    public List<Method> methodList = new ArrayList<>(16);
 
     @Override
     Annotation[] getAnnotationArray() {

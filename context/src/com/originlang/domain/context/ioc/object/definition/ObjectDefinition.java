@@ -1,4 +1,4 @@
-package com.originlang.domain.context.bean.definition;
+package com.originlang.domain.context.ioc.object.definition;
 
 public interface ObjectDefinition {
 
