@@ -42,26 +42,17 @@ public class ApplicationContext extends ApplicationAbstractContext {
     public Object getObject(String name) {
         System.out.println("***************getobj="+name);
         Object object = iocContainerMap.get(name);
-        if (object != null) {
-            return object;
-        }
-            //没有创建，
-           ObjectDefinition objectDefinition = objectDefinitionMap.get(name);
-        objectDefinitionMap.remove(name);
-        earlyObjectContainerMap.put(name,objectDefinition.getObject());
-        List<Field> fieldList = objectDefinition.getFieldList();
-        for(Field field:fieldList){
-            //属性的全名
-            String fieldClazzName = field.getType().getName();
-            Object fiedlObject = objectDefinitionMap.get(fieldClazzName);
-            try {
-                field.set(object,fiedlObject);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        // aop处理
-        List<Method> methodList = objectDefinition.getMethodList();
+//        if (object != null) {
+//            return object;
+//        }
+//            //没有创建，
+//           ObjectDefinition objectDefinition = objectDefinitionMap.get(name);
+//        objectDefinitionMap.remove(name);
+//        earlyObjectContainerMap.put(name,objectDefinition.newObject());
+//        List<Field> fieldList = objectDefinition.getFieldList();
+//
+//        // aop处理
+//        List<Method> methodList = objectDefinition.getMethodList();
 
 
         return object;
@@ -91,20 +82,33 @@ public class ApplicationContext extends ApplicationAbstractContext {
 
 
     private void  doDependencyInjection(ObjectDefinition objectDefinition) throws IllegalAccessException {
-        Object object = objectDefinition.getObject();
+        Object object = objectDefinition.newObject();
         if (object == null) {
             throw new RuntimeException("依赖注入对象不能为null");
         }
        String clazzName = objectDefinition.getObjectName();
+        System.out.println("依赖注入对象"+clazzName);
         objectDefinitionMap.remove(clazzName);
         earlyObjectContainerMap.put(clazzName, object);
 
         List<Field> fieldList = objectDefinition.getFieldList();
+
+
         for(Field field:fieldList){
             //属性的全名
             String fieldClazzName = field.getType().getName();
-            Object fiedlObject = objectDefinitionMap.get(fieldClazzName);
-           field.set(object,fiedlObject);
+            Object fieldObject =  earlyObjectContainerMap.get(fieldClazzName);
+            ObjectDefinition fiedlObjectDefinition = objectDefinitionMap.get(fieldClazzName);
+            if(fieldObject==null){
+                 fieldObject = fiedlObjectDefinition.newObject();
+                earlyObjectContainerMap.put(fieldClazzName,fieldObject);
+            }
+            try {
+
+                field.set(object,fieldObject);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
         // aop处理
         List<Method> methodList = objectDefinition.getMethodList();

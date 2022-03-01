@@ -16,7 +16,7 @@ public class ApplicationProxyObjectFactory {
 
 
     public Map newProxyObject(ObjectDefinition objectDefinition) {
-        Object object = objectDefinition.getObject();
+        Object object = objectDefinition.newObject();
         //获取代理的方法
         Class clazz = objectDefinition.getClazz();
 
@@ -25,14 +25,14 @@ public class ApplicationProxyObjectFactory {
 
         Map<String, Object> proxyMap = new ConcurrentHashMap<>(16);
         Object proxyInstance = null;
-        String execution = null;
+        String superInterface = null;
         for (Method method : methodArray) {
             PointCut pointCutAnnotation = method.getAnnotation(PointCut.class);
             if (pointCutAnnotation == null) {
                 continue;
             }
             //配置的代理类
-            execution = pointCutAnnotation.execution();
+           String execution = pointCutAnnotation.execution();
             System.out.println("切点接口：" + execution);
             Class executionClazz = null;
             Object aspect = null;
@@ -55,7 +55,7 @@ public class ApplicationProxyObjectFactory {
                 e.printStackTrace();
             }
 
-            String superInterface = pointCutAnnotation.superInterface();
+             superInterface = pointCutAnnotation.superInterface();
             Class superClazz = null;
             try {
                 superClazz = Class.forName(superInterface);
@@ -92,7 +92,7 @@ public class ApplicationProxyObjectFactory {
 //            System.out.println(clazz.getName() + "----------------------------------------------------------Proxy instance=" + proxyInstance);
 ////                    ApplicationContext.registerSingleton(clazz.getInterfaces()[0].getName(),proxyInstance);
         }
-        proxyMap.put(execution, proxyInstance);
+        proxyMap.put(superInterface, proxyInstance);
         return proxyMap;
 
 

@@ -40,17 +40,6 @@ public class ApplicationScanner implements Scanner{
             logFacade.info(">>>>>start class in mainClazzPath="+mainClazzPath);
 
 
-//            File mainFileDir = new File(mainClazzPath);
-//            System.out.println("11111111111111111111");
-//            File[] dirfiles = mainFileDir.listFiles(new FileFilter() {
-//                // 自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
-//                @Override
-//                public boolean accept(File file) {
-//                    System.out.println("是否class文件+" + file.isDirectory() + file.getName().endsWith(".class"));
-//                    return   (file.isDirectory()) || (file.getName().endsWith(".class"));
-//                }
-//            });
-
                 doScan(mainClazzPath,mainClazz.getPackageName());
 
 //            doScan(mainClazz,mainClazzPath);

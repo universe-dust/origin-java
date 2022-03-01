@@ -18,7 +18,9 @@ public class ApplicationBootstrap {
     static LogFacade logFacade = LogFactory.getLogger(ApplicationBootstrap.class);
 
     public static void run(Class mainClazz, String[] args) {
+        logFacade.info("==============================");
         logFacade.info("JavaApplication starting >>>>>");
+        logFacade.info("==============================");
         doRun(mainClazz, args);
         logFacade.info("==============================");
         logFacade.info("JavaApplication started <<<<<");

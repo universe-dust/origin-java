@@ -65,7 +65,7 @@ public class ApplicationAnnotationObjectDefinition extends AnnotationObjectDefin
     }
 
     @Override
-    public Object getObject() {
+    public Object newObject() {
         Object obj = null;
         try {
             return this.clazz.getConstructor().newInstance();

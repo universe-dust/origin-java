@@ -14,7 +14,7 @@
 获取代理对象的方式为get(父类接口全名)
 ## 对比Spring对象创建
 - 扫描
-- 创建ObjectDefinition，放入三级缓存
+- 包装成ObjectDefinition，放入三级缓存
 - 依赖注入，先放入二级，
 - 
 spring的依赖注入是：

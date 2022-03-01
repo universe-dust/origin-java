@@ -14,7 +14,7 @@ public interface ObjectDefinition {
 
 
 
-     Object getObject();
+     Object newObject();
 
      String getObjectName();
 

@@ -9,4 +9,7 @@ public interface ObjectFactory {
 
 
     Map<String, ObjectDefinition> createObject(List<String> classNameList, Map<String, ObjectDefinition> collection) throws ClassNotFoundException;
+
+
+
 }

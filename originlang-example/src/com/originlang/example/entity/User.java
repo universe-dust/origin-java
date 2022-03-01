@@ -6,6 +6,7 @@ import com.originlang.domain.context.annotation.Entity;
 
 import java.util.List;
 
+@Dependency
 @Entity
 public class User implements UserAopInterface{
 
