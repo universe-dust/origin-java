@@ -1,6 +1,8 @@
-package com.originlang.domain.aop;
+package com.originlang.domain.aop.annotation;
 
 
+
+import com.originlang.domain.aop.DefaultPointCutInterface;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -29,7 +31,7 @@ public @interface PointCut {
 
     //jdk动态代理所需的接口，代理方法必须实现
 
-    String interfaceName() default "";
+    String superInterface() ;
 
 }
 

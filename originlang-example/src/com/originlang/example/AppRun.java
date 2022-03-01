@@ -24,10 +24,11 @@ public class AppRun {
         Class userClass=  Class.forName("com.originlang.example.entity.User");
         System.out.println(userClass.getAnnotation(Dependency.class));
         System.out.println(userClass.getDeclaredAnnotation(Dependency.class));
-//       Field[] fields2 = userClass.getDeclaredFields();
-//        for (Field field : fields2) {
+       Field[] fields2 = userClass.getDeclaredFields();
+        for (Field field : fields2) {
 //            printFieldValue(field);
-//        }
+//            field.set(account);
+        }
 
 
         ApplicationBootstrap.run(AppRun.class,args);
@@ -38,7 +39,7 @@ public class AppRun {
 
         //有代理类则获取不到此方法
 //        System.out.println(ApplicationContext.getDependencyByClass(User.class).say());
-        UserAopInterface userAopInterface = (UserAopInterface) ApplicationContext.getDependencyByName("com.originlang.example.entity.UserAopInterface");
+        UserAopInterface userAopInterface = (UserAopInterface) ApplicationContext.getInstance().getObject("com.originlang.example.entity.UserAopInterface");
         System.out.println(userAopInterface.aopSay("aop ssssssssssssssssss"));
     }
 

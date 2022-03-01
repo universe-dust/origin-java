@@ -2,7 +2,7 @@
 //
 //import java.lang.reflect.InvocationHandler;
 //import java.lang.reflect.Method;
-//
+//  aop调用处理
 //public class AopInvocationHandler implements InvocationHandler {
 //    //目标对象
 //     Object target;

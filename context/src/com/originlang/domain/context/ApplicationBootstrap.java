@@ -3,6 +3,7 @@ package com.originlang.domain.context;
 import com.originlang.domain.context.annotation.Application;
 import com.originlang.domain.context.ioc.ApplicationContext;
 import com.originlang.domain.context.ioc.Context;
+import com.originlang.domain.context.ioc.object.definition.ObjectDefinition;
 import com.originlang.domain.context.ioc.object.factory.ApplicationObjectFactory;
 import com.originlang.domain.context.ioc.object.factory.ObjectFactory;
 import com.originlang.domain.context.scan.ApplicationScanner;
@@ -11,6 +12,7 @@ import com.originlang.log.LogFacade;
 import com.originlang.log.LogFactory;
 
 import java.util.List;
+import java.util.Map;
 
 public class ApplicationBootstrap {
     static LogFacade logFacade = LogFactory.getLogger(ApplicationBootstrap.class);
@@ -41,26 +43,20 @@ public class ApplicationBootstrap {
         Scanner scanner = new ApplicationScanner();
         List<String> classNameList = scanner.scan(mainClazz);
 
-//        Context context = new ApplicationContext();
-//        for (String classFullName : classNameList  ) {
-//            context.getDependencyByName(classFullName);
-//        }
-
+        var applicationContext = ApplicationContext.getInstance();
 
         //生产对象，封装到beanDefinition
-//        ObjectFactory objectFactory = new ApplicationObjectFactory();
-//        try {
-//            //todo
-//            objectFactory.createObject(classNameList);
-//        } catch (ClassNotFoundException e) {
-//            //todo 异常处理
-//            e.printStackTrace();
-//        }
+        ObjectFactory objectFactory = new ApplicationObjectFactory();
 
+        try {
+             objectFactory.createObject(classNameList,applicationContext.getObjectDefinitionMap());
+        } catch (ClassNotFoundException e) {
+            //todo 异常处理
+            e.printStackTrace();
+        }
+        //依赖注入
+        applicationContext.dependencyInjection();
 
-        //注入容器
-//        DependencyInjection dependencyInjection =new ApplicationDependencyInjection();
-//        dependencyInjection.dependencyInjection(classNameList);
 
 
         // 应用初始化

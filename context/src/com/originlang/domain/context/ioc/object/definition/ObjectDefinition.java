@@ -1,5 +1,9 @@
 package com.originlang.domain.context.ioc.object.definition;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
+
 public interface ObjectDefinition {
 
     // 单例、原型标识符
@@ -8,17 +12,23 @@ public interface ObjectDefinition {
 
 
 
-    //接口中只定义方法，字段由实现类去实现；
-     void setObjectName(String objectName);
-
-     String getObjectName( );
 
 
+     Object getObject();
+
+     String getObjectName();
+
+
+     List<Field> getFieldList();
+
+     List<Method> getMethodList();
+
+     Class getClazz();
 
     // 标识 Bean 的类别，分别对应 用户定义的 Bean、来源于配置文件的 Bean、 内部的 Bean
-    int ROLE_APPLICATION = 0;
-    int ROLE_SUPPORT = 1;
-    int ROLE_INFRASTRUCTURE = 2;
+//    int ROLE_APPLICATION = 0;
+//    int ROLE_SUPPORT = 1;
+//    int ROLE_INFRASTRUCTURE = 2;
 //
 //    // 设置、返回 Bean 的父类名称
 //    void setParentName( String parentName);

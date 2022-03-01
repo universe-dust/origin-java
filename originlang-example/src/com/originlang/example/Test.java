@@ -1,4 +1,4 @@
-//package com.originlang.example;
+package com.originlang.example;//package com.originlang.example;
 //
 //
 //
@@ -184,16 +184,29 @@
 //
 //
 ////--------------------------------
-//
-//public class Test {
-//
-//
-//
-//
-//
-//
-//
-//}
-//
-//
-//
+
+import com.originlang.example.entity.Account;
+import com.originlang.example.entity.User;
+
+import java.lang.reflect.Field;
+
+public class Test {
+
+
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
+        Class clazz  =User.class;
+        User user = new User();
+        Field field = clazz.getDeclaredField("account");
+        field.setAccessible(true);
+        Account account = new Account();
+        field.set(user,account);
+
+
+    }
+
+
+
+}
+
+
+

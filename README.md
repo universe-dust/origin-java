@@ -12,8 +12,25 @@
 ## AOP
 基于jdk动态代理实现，被代理对象必须有一个父接口，容器中注入的是代理对象；
 获取代理对象的方式为get(父类接口全名)
+## 对比Spring对象创建
+- 扫描
+- 创建ObjectDefinition，放入三级缓存
+- 依赖注入，先放入二级，
+- 
+spring的依赖注入是：
+- 创建bean，map<name,beanFactory>,
+- 放入三级缓存
+- 注入属性，解决循环依赖，从三级缓存取出，移入二级
+- bean初始化，生成aop代理类
+
+
+
 
 # 项目结构
+scanner 扫描
+objectFactory-生产objectDefinition
+context--注入内部ioc容器中；
+
 > core  -基础模块  
 >  
 > log 日志

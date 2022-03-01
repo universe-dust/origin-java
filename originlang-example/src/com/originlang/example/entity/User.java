@@ -1,6 +1,6 @@
 package com.originlang.example.entity;
 
-import com.originlang.domain.aop.PointCut;
+import com.originlang.domain.aop.annotation.PointCut;
 import com.originlang.domain.context.annotation.Dependency;
 import com.originlang.domain.context.annotation.Entity;
 
@@ -22,7 +22,7 @@ public class User implements UserAopInterface{
         return "say";
     }
 
-    @PointCut(execution = "com.originlang.example.entity.AopSay")
+    @PointCut(execution = "com.originlang.example.entity.AopSay",superInterface ="com.originlang.example.entity.UserAopInterface" )
     public  String aopSay(String say){
         System.out.println("----------------user say"+say);
         return say;

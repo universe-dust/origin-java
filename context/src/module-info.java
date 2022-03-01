@@ -5,6 +5,7 @@ open module context {
     exports com.originlang.domain.context.ioc.object.factory;
 
     exports com.originlang.domain.context.annotation;
+    exports com.originlang.domain.aop.annotation;
     requires java.base;
     requires base;
     requires log;
