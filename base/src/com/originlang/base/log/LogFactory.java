@@ -1,4 +1,4 @@
-package com.originlang.log;
+package com.originlang.base.log;
 
 public class LogFactory {
     public static JdkLogFacade getLogger(Class clazz){

@@ -3,15 +3,12 @@ package com.originlang.domain.context.scan;
 
 import com.originlang.base.SystemInfo;
 import com.originlang.domain.context.ApplicationBootstrap;
-import com.originlang.domain.context.ioc.ApplicationContext;
-import com.originlang.log.LogFacade;
-import com.originlang.log.LogFactory;
+import com.originlang.base.log.LogFacade;
+import com.originlang.base.log.LogFactory;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;

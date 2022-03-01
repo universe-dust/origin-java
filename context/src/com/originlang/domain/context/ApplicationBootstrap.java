@@ -2,17 +2,14 @@ package com.originlang.domain.context;
 
 import com.originlang.domain.context.annotation.Application;
 import com.originlang.domain.context.ioc.ApplicationContext;
-import com.originlang.domain.context.ioc.Context;
-import com.originlang.domain.context.ioc.object.definition.ObjectDefinition;
 import com.originlang.domain.context.ioc.object.factory.ApplicationObjectFactory;
 import com.originlang.domain.context.ioc.object.factory.ObjectFactory;
 import com.originlang.domain.context.scan.ApplicationScanner;
 import com.originlang.domain.context.scan.Scanner;
-import com.originlang.log.LogFacade;
-import com.originlang.log.LogFactory;
+import com.originlang.base.log.LogFacade;
+import com.originlang.base.log.LogFactory;
 
 import java.util.List;
-import java.util.Map;
 
 public class ApplicationBootstrap {
     static LogFacade logFacade = LogFactory.getLogger(ApplicationBootstrap.class);

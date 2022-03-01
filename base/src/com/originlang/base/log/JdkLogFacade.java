@@ -1,4 +1,4 @@
-package com.originlang.log;
+package com.originlang.base.log;
 
 
 import java.util.logging.Logger;
