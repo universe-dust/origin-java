@@ -4,6 +4,7 @@ import com.originlang.domain.context.ApplicationBootstrap;
 import com.originlang.domain.context.annotation.Application;
 import com.originlang.domain.context.annotation.Dependency;
 import com.originlang.domain.context.ioc.ApplicationContext;
+import com.originlang.example.entity.User;
 import com.originlang.example.entity.UserAopInterface;
 
 

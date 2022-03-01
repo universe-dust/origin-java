@@ -26,7 +26,7 @@ public class ApplicationContext extends ApplicationAbstractContext {
 
     private Map<String, Object> earlyObjectContainerMap = new ConcurrentHashMap<>(16);
 
-    private Map<String ,ObjectDefinition> objectDefinitionMap = new ConcurrentHashMap<>(256);
+    private Map<String, ObjectDefinition> objectDefinitionMap = new ConcurrentHashMap<>(256);
 
 
     /**
@@ -39,14 +39,14 @@ public class ApplicationContext extends ApplicationAbstractContext {
     }
 
     @Override
-    public Object getObject(String name) {
-        System.out.println("***************getobj="+name);
-        Object object = iocContainerMap.get(name);
-//        if (object != null) {
-//            return object;
-//        }
+    public Object getObject(String clazzName) {
+        System.out.println("***************getobj=" + clazzName);
+        Object object = iocContainerMap.get(clazzName);
+        if (object != null) {
+            return object;
+        }
 //            //没有创建，
-//           ObjectDefinition objectDefinition = objectDefinitionMap.get(name);
+        ObjectDefinition objectDefinition = objectDefinitionMap.get(clazzName);
 //        objectDefinitionMap.remove(name);
 //        earlyObjectContainerMap.put(name,objectDefinition.newObject());
 //        List<Field> fieldList = objectDefinition.getFieldList();
@@ -58,7 +58,7 @@ public class ApplicationContext extends ApplicationAbstractContext {
         return object;
     }
 
-    public Map<String, ObjectDefinition> getObjectDefinitionMap(){
+    public Map<String, ObjectDefinition> getObjectDefinitionMap() {
         return objectDefinitionMap;
     }
 
@@ -68,59 +68,87 @@ public class ApplicationContext extends ApplicationAbstractContext {
      */
     // todo ，对ObjectDefinition注入ioc容器    Dependency Injection
     public void dependencyInjection() {
-        for (Map.Entry<String,ObjectDefinition> entry: objectDefinitionMap.entrySet() ) {
-            ObjectDefinition objectDefinition = entry.getValue();
-            try {
+        //创建早期对象
+
+        try {
+            //            objectDefinitionMap.forEach((clazzName,objectDefinition)->{
+            //                doDependencyInjection(objectDefinition);
+            //            });
+            for (Map.Entry<String, ObjectDefinition> entry : objectDefinitionMap.entrySet()) {
+                ObjectDefinition objectDefinition = entry.getValue();
                 doDependencyInjection(objectDefinition);
-            } catch (IllegalAccessException e) {
-                //todo
-                e.printStackTrace();
             }
+
+
+        } catch (IllegalAccessException e) {
+            //todo
+            e.printStackTrace();
         }
+
 
     }
 
 
-    private void  doDependencyInjection(ObjectDefinition objectDefinition) throws IllegalAccessException {
+    private void doDependencyInjection(ObjectDefinition objectDefinition) throws IllegalAccessException {
         Object object = objectDefinition.newObject();
         if (object == null) {
             throw new RuntimeException("依赖注入对象不能为null");
         }
-       String clazzName = objectDefinition.getObjectName();
-        System.out.println("依赖注入对象"+clazzName);
-        objectDefinitionMap.remove(clazzName);
+
+       String clazzName =null;
+       var clazzInterfaceArray = objectDefinition.getClazz().getInterfaces();
+       if(clazzInterfaceArray==null||clazzInterfaceArray.length==0){
+            clazzName = objectDefinition.getObjectName();
+       }else {
+           clazzName=  clazzInterfaceArray[0].getName();
+       }
+
+
+        System.out.println("依赖注入对象" + clazzName);
+
         earlyObjectContainerMap.put(clazzName, object);
 
         List<Field> fieldList = objectDefinition.getFieldList();
 
 
-        for(Field field:fieldList){
+        for (Field field : fieldList) {
             //属性的全名
-            String fieldClazzName = field.getType().getName();
-            Object fieldObject =  earlyObjectContainerMap.get(fieldClazzName);
-            ObjectDefinition fiedlObjectDefinition = objectDefinitionMap.get(fieldClazzName);
-            if(fieldObject==null){
-                 fieldObject = fiedlObjectDefinition.newObject();
-                earlyObjectContainerMap.put(fieldClazzName,fieldObject);
+            Class[] fieldClazzArray = field.getType().getInterfaces();
+            String fieldClazzName = null;
+            if (fieldClazzArray == null || fieldClazzArray.length == 0) {
+                fieldClazzName = field.getType().getName();
+            } else {
+                fieldClazzName = fieldClazzArray[0].getName();
+            }
+
+            Object fieldObject = iocContainerMap.get(fieldClazzName);
+            if (fieldObject == null) {
+                fieldObject = earlyObjectContainerMap.get(fieldClazzName);
+            }
+
+            if (fieldObject == null) {
+                ObjectDefinition fiedlObjectDefinition = objectDefinitionMap.get(fieldClazzName);
+                fieldObject = fiedlObjectDefinition.newObject();
+                earlyObjectContainerMap.put(fieldClazzName, fieldObject);
             }
             try {
 
-                field.set(object,fieldObject);
+                field.set(object, fieldObject);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
         // aop处理
         List<Method> methodList = objectDefinition.getMethodList();
-        for (Method method:methodList){
-            ApplicationProxyObjectFactory factory =new ApplicationProxyObjectFactory();
-            Map<String,Object> proxyObject = factory.newProxyObject(objectDefinition);
+        for (Method method : methodList) {
+            ApplicationProxyObjectFactory factory = new ApplicationProxyObjectFactory();
+            Map<String, Object> proxyObject = factory.newProxyObject(objectDefinition);
             iocContainerMap.putAll(proxyObject);
         }
+        objectDefinitionMap.remove(clazzName);
         earlyObjectContainerMap.remove(clazzName);
-        iocContainerMap.put(clazzName,object);
+        iocContainerMap.put(clazzName, object);
     }
-
 
 
 //    public <T> T registerSingleton(String key, T value) {
@@ -131,9 +159,6 @@ public class ApplicationContext extends ApplicationAbstractContext {
     public static <T> T getDependencyByClass(Class<T> clazz) {
         return (T) applicationContext.iocContainerMap.get(clazz.getName());
     }
-
-
-
 
 
 }

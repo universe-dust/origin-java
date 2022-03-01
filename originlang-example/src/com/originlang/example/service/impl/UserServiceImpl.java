@@ -3,7 +3,7 @@ package com.originlang.example.service.impl;
 import com.originlang.domain.context.annotation.Dependency;
 import com.originlang.example.service.AccountService;
 import com.originlang.example.service.UserService;
-
+@Dependency
 public class UserServiceImpl implements UserService {
 
     @Dependency

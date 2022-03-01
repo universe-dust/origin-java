@@ -193,6 +193,13 @@ public class ApplicationObjectFactory implements ObjectFactory {
 //                    ApplicationContext.registerSingleton(clazz.getInterfaces()[0].getName(),proxyInstance);
             }
 
+            //如果有接口用接口名称
+            Class[] interfaceArray = clazz.getInterfaces();
+
+            if(interfaceArray!=null&& interfaceArray.length!=0) {
+
+                classFullName = interfaceArray[0].getName();
+            }
 
             map.put(classFullName,objectDefinition);
 
