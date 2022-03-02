@@ -1,3 +1,3 @@
-module originlang.java {
+module origin.java {
     requires server;
 }
