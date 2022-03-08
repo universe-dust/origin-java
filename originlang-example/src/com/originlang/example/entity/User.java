@@ -1,8 +1,8 @@
 package com.originlang.example.entity;
 
-import com.originlang.domain.aop.annotation.PointCut;
-import com.originlang.domain.context.annotation.Dependency;
-import com.originlang.domain.context.annotation.Entity;
+import com.originlang.context.aop.annotation.PointCut;
+import com.originlang.context.annotation.Dependency;
+import com.originlang.context.annotation.Entity;
 import com.originlang.example.service.UserService;
 
 import java.util.List;

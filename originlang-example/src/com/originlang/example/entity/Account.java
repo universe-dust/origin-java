@@ -1,7 +1,7 @@
 package com.originlang.example.entity;
 
 
-import com.originlang.domain.context.annotation.Dependency;
+import com.originlang.context.annotation.Dependency;
 
 @Dependency
 public class Account {

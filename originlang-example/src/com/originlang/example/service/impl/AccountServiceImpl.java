@@ -1,6 +1,6 @@
 package com.originlang.example.service.impl;
 
-import com.originlang.domain.context.annotation.Dependency;
+import com.originlang.context.annotation.Dependency;
 import com.originlang.example.service.AccountService;
 
 @Dependency
