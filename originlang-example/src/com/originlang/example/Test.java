@@ -189,6 +189,7 @@ import com.originlang.example.entity.Account;
 import com.originlang.example.entity.User;
 
 import java.lang.reflect.Field;
+import java.util.BitSet;
 
 public class Test {
 
@@ -201,8 +202,36 @@ public class Test {
         Account account = new Account();
         field.set(user,account);
 
+        BitSet bitSet = new BitSet();
+
+        int[] num = new int[] { 5, 12, 26 };
+
+        for (int i = 0; i < num.length; i++) {
+            bitSet.set(num[i]);
+        }
+
+        int a = 15;
+
+        if (bitSet.get(a)) {
+            System.out.println(a + ",重复");
+        } else {
+            System.out.println(a + ",不重复");
+        }
+
+        a = 26;
+
+        if (bitSet.get(a)) {
+            System.out.println(a + ",重复");
+        } else {
+            System.out.println(a + ",不重复");
+        }
 
     }
+
+
+
+
+
 
 
 
